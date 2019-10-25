@@ -1,0 +1,16 @@
+OBJ= datafuncprototype.grammar.obj DataFuncPrototypeCompiler.obj datafuncprototype.lex.obj
+	
+rebuild: clean all
+
+all: $(OBJ)	main.obj
+	$(CC) /nologo /LDd /Fe../bin/datafuncprototype_compiler.dll $(OBJ) gcmt-dll.lib
+	$(CC) /nologo /Fe:../bin/DataFuncProtoCompiler.exe ../bin/datafuncprototype_compiler.lib main.obj gcmt-dll.lib
+	
+.cc.obj:   
+	$(CC) /nologo /EHsc /I ../FlexLexer /I ../include /I ../tools /I ../DataFuncPrototypeCompiler /c $*.cc /Fo$@    
+	
+.cpp.obj:   
+	$(CC) /nologo /EHsc /I ../FlexLexer /I ../include /I ../tools /I ../DataFuncPrototypeCompiler /c $*.cpp /Fo$@
+
+clean:
+	del *.obj *.exe *.lib *.dll *.exp *.output
